@@ -1,7 +1,6 @@
 # devel needed for bitsandbytes requirement of libcudart.so, otherwise runtime sufficient
-FROM nvidia/cuda:12.1.1-cudnn8-devel-ubuntu20.04
+FROM gcr.io/vorvan/h2oai/h2ogpt-runtime:latest
 
-ENV DEBIAN_FRONTEND=noninteractive
 
 ENV PATH="/h2ogpt_conda/bin:${PATH}"
 ARG PATH="/h2ogpt_conda/bin:${PATH}"

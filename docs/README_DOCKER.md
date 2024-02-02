@@ -51,20 +51,21 @@ All available public h2oGPT docker images can be found in [Google Container Regi
 
 Ensure image is up-to-date by running:
 ```bash
-docker pull gcr.io/vorvan/h2oai/h2ogpt-runtime:0.1.0
+docker pull gcr.io/vorvan/h2oai/h2ogpt-runtime
 ```
 
 An example running h2oGPT via docker using Zephyr 7B Beta model is:
 ```bash
-mkdir -p ~/.cache
-mkdir -p ~/save
-mkdir -p ~/user_path
-mkdir -p ~/db_dir_UserData
-mkdir -p ~/users
-mkdir -p ~/db_nonusers
-mkdir -p ~/llamacpp_path
-mkdir -p ~/h2ogpt_auth
-echo '["key1","key2"]' > ~/h2ogpt_auth/h2ogpt_api_keys.json
+cd ..
+mkdir -p .cache
+mkdir -p save
+mkdir -p user_path
+mkdir -p db_dir_UserData
+mkdir -p users
+mkdir -p db_nonusers
+mkdir -p llamacpp_path
+mkdir -p h2ogpt_auth
+echo '["key1","key2"]' > h2ogpt_auth/h2ogpt_api_keys.json
 export GRADIO_SERVER_PORT=7860
 docker run \
        --gpus all \
@@ -76,14 +77,14 @@ docker run \
        -v /etc/passwd:/etc/passwd:ro \
        -v /etc/group:/etc/group:ro \
        -u `id -u`:`id -g` \
-       -v "${HOME}"/.cache:/workspace/.cache \
-       -v "${HOME}"/save:/workspace/save \
-       -v "${HOME}"/user_path:/workspace/user_path \
-       -v "${HOME}"/db_dir_UserData:/workspace/db_dir_UserData \
-       -v "${HOME}"/users:/workspace/users \
-       -v "${HOME}"/db_nonusers:/workspace/db_nonusers \
-       -v "${HOME}"/llamacpp_path:/workspace/llamacpp_path \
-       -v "${HOME}"/h2ogpt_auth:/workspace/h2ogpt_auth \
+       -v .cache:/workspace/.cache \
+       -v save:/workspace/save \
+       -v user_path:/workspace/user_path \
+       -v db_dir_UserData:/workspace/db_dir_UserData \
+       -v users:/workspace/users \
+       -v db_nonusers:/workspace/db_nonusers \
+       -v llamacpp_path:/workspace/llamacpp_path \
+       -v h2ogpt_auth:/workspace/h2ogpt_auth \
        gcr.io/vorvan/h2oai/h2ogpt-runtime:0.1.0 /workspace/generate.py \
           --base_model=HuggingFaceH4/zephyr-7b-beta \
           --use_safetensors=True \

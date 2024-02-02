@@ -2,25 +2,36 @@ version: '3'
 
 services:
   h2ogpt:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: h2oai/h2o-3-gpt:latest
     restart: always
     shm_size: '2gb'
     ports:
       - '${H2OGPT_PORT}:7860'
     volumes:
-      - cache:/workspace/.cache
+      - .cache:/workspace/.cache
       - save:/workspace/save
+      - user_path:/workspace/user_path
+      - db_dir_UserData:/workspace/db_dir_UserData
+      - users:/workspace/users
+      - db_nonusers:/workspace/db_nonusers
+      - llamacpp_path:/workspace/llamacpp_path
+      - h2ogpt_auth:/workspace/h2ogpt_auth
     command: ${H2OGPT_ARGS}
-    deploy:
-      resources:
-        reservations:
-          devices:
-          - driver: nvidia
-            count: all
-            capabilities: [gpu]
+#    deploy:
+#      resources:
+#        reservations:
+#          devices:
+#          - driver: nvidia
+#            count: all
+#            capabilities: [gpu]
 
 volumes:
   cache:
   save:
+  user_path:
+  db_dir_UserData:
+  users:
+  db_nonusers:
+  llamacpp_path:
+  h2ogpt_auth:
+
